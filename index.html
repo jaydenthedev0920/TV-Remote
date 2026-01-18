@@ -15,19 +15,16 @@
         <h1 class="title">Samsung TV Remote</h1>
         <div id="status" class="status">Connecting…</div>
 
-        <!-- POWER -->
         <div class="power-row">
             <button class="btn power pulse" onclick="playClick(); sendKey('KEY_POWER')">⏻</button>
         </div>
 
-        <!-- HOME / BACK / SETTINGS -->
         <div class="top-row">
             <button class="btn small pulse" onclick="playClick(); sendKey('KEY_HOME')">Home</button>
             <button class="btn small pulse" onclick="playClick(); sendKey('KEY_BACK')">Back</button>
             <button class="btn small pulse" onclick="playClick(); sendKey('KEY_MENU')">Menu</button>
         </div>
 
-        <!-- D-PAD -->
         <div class="dpad">
             <button class="btn dpad-btn pulse" onclick="playClick(); sendKey('KEY_UP')">▲</button>
 
@@ -40,7 +37,6 @@
             <button class="btn dpad-btn pulse" onclick="playClick(); sendKey('KEY_DOWN')">▼</button>
         </div>
 
-        <!-- VOLUME + CHANNEL ROCKERS -->
         <div class="rockers">
             <div class="rocker">
                 <div class="rocker-label">VOL</div>
@@ -55,7 +51,6 @@
             </div>
         </div>
 
-        <!-- EXIT -->
         <button class="btn wide pulse" onclick="playClick(); sendKey('KEY_EXIT')">Exit</button>
 
     </div>
