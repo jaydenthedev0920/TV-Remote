@@ -1,6 +1,6 @@
 /* ================================
    FUTURISTIC SAMSUNG REMOTE UI
-   Clean • Cinematic • Professional
+   Glow • Cinematic • Premium
 ================================ */
 
 body {
@@ -26,6 +26,7 @@ body {
     text-align: center;
 }
 
+/* TITLE + STATUS */
 .title {
     font-size: 26px;
     font-weight: 600;
@@ -37,6 +38,42 @@ body {
     font-size: 14px;
     opacity: 0.8;
     margin-bottom: 25px;
+}
+
+/* GLOW PULSE ANIMATION */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 8px rgba(0,150,255,0.2); }
+    50% { box-shadow: 0 0 18px rgba(0,150,255,0.5); }
+    100% { box-shadow: 0 0 8px rgba(0,150,255,0.2); }
+}
+
+.pulse {
+    animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* BUTTON PRESS ANIMATION */
+.btn:active {
+    transform: scale(0.92);
+    background: rgba(0, 150, 255, 0.45);
+    box-shadow: 0 0 25px rgba(0,150,255,0.7);
+}
+
+/* GENERAL BUTTON STYLE */
+.btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+    user-select: none;
+}
+
+.btn:hover {
+    background: rgba(0, 150, 255, 0.25);
+    transform: translateY(-2px);
 }
 
 /* POWER BUTTON */
@@ -51,21 +88,15 @@ body {
     border: 1px solid rgba(255, 60, 60, 0.4);
 }
 
-.power:hover {
-    background: rgba(255, 60, 60, 0.4);
-    box-shadow: 0 0 15px rgba(255, 60, 60, 0.6);
-}
-
-/* SIDE CONTROLS */
-.side-controls {
+/* TOP ROW */
+.top-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-.side-btn {
-    width: 100px;
-    margin: 5px 0;
+.small {
+    width: 90px;
 }
 
 /* D-PAD */
@@ -92,41 +123,37 @@ body {
     border: 1px solid rgba(0, 150, 255, 0.4);
 }
 
-.ok-btn:hover {
-    background: rgba(0, 150, 255, 0.4);
-    box-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
-}
-
 .dpad-btn {
     width: 60px;
     height: 60px;
     border-radius: 12px;
 }
 
-/* GENERAL BUTTON STYLE */
-.btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s ease;
-    user-select: none;
+/* ROCKERS */
+.rockers {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
 }
 
-.btn:hover {
-    background: rgba(0, 150, 255, 0.25);
-    box-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
-    transform: translateY(-2px);
+.rocker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.btn:active {
-    transform: scale(0.95);
-    background: rgba(0, 150, 255, 0.35);
+.rocker-label {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 5px;
 }
 
+.rocker-btn {
+    width: 70px;
+    margin: 5px 0;
+}
+
+/* WIDE BUTTON */
 .wide {
     width: 100%;
     margin-top: 10px;
