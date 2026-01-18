@@ -21,29 +21,6 @@ h1 {
     opacity: 0.85;
 }
 
-.ip-box {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-#tv-ip {
-    flex: 1;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    font-size: 16px;
-}
-
-#connect-btn {
-    padding: 10px 15px;
-    background: #007bff;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    cursor: pointer;
-}
-
 .status {
     margin-bottom: 20px;
     font-size: 14px;
