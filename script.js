@@ -1,50 +1,58 @@
+// ===============================
+//  Samsung TV Remote - Direct IP
+// ===============================
+
+const TV_IP = "192.168.1.124";   // Your TV's IP
+const TV_PORT = 8002;            // Secure WebSocket port for AU8000
+
 let ws = null;
-let tvIP = null;
-let tvPort = null;
+let reconnectTimer = null;
 
-function setStatus(text) {
-    document.getElementById("status").innerText = text;
-}
+// -------------------------------
+//  Connect to TV
+// -------------------------------
+function connectToTV() {
+    const encodedName = btoa("JaydenRemote");
+    const url = `wss://${TV_IP}:${TV_PORT}/api/v2/channels/samsung.remote.control?name=${encodedName}`;
 
-async function getTVInfo() {
-    try {
-        const res = await fetch("http://localhost:5050/tv-ip");
-        const data = await res.json();
-        if (!data.ip || !data.port) return null;
-        return data;
-    } catch (e) {
-        return null;
-    }
-}
-
-function connectToTV(ip, port) {
-    const isSecure = port === 8002;
-    const protocol = isSecure ? "wss" : "ws";
-    const url = `${protocol}://${ip}:${port}/api/v2/channels/samsung.remote.control`;
+    console.log("Connecting to TV at:", url);
 
     ws = new WebSocket(url);
 
     ws.onopen = () => {
-        setStatus(`Connected to TV (${ip}:${port})`);
-        console.log("Connected to Samsung TV");
+        console.log("Connected to TV");
+        updateStatus("Connected to TV");
     };
 
-    ws.onerror = () => {
-        setStatus("Connection error");
+    ws.onerror = (err) => {
+        console.log("WebSocket error:", err);
+        updateStatus("Connection error");
     };
 
     ws.onclose = () => {
-        setStatus("Disconnected");
+        console.log("Disconnected from TV, retrying...");
+        updateStatus("Disconnected, retrying...");
+
+        clearTimeout(reconnectTimer);
+        reconnectTimer = setTimeout(connectToTV, 2000);
+    };
+
+    ws.onmessage = (msg) => {
+        console.log("TV Response:", msg.data);
     };
 }
 
+// -------------------------------
+//  Send Remote Key
+// -------------------------------
 function sendKey(key) {
     if (!ws || ws.readyState !== 1) {
-        setStatus("Not connected");
+        console.log("Not connected, cannot send:", key);
+        updateStatus("Not connected");
         return;
     }
 
-    const cmd = {
+    const command = {
         method: "ms.remote.control",
         params: {
             Cmd: "Click",
@@ -54,32 +62,19 @@ function sendKey(key) {
         }
     };
 
-    ws.send(JSON.stringify(cmd));
+    ws.send(JSON.stringify(command));
+    console.log("Sent key:", key);
 }
 
-async function init() {
-    setStatus("Searching for TV…");
-    const info = await getTVInfo();
-
-    if (!info) {
-        setStatus("TV not found on network");
-        return;
-    }
-
-    tvIP = info.ip;
-    tvPort = info.port;
-
-    setStatus(`TV found at ${tvIP}:${tvPort}, connecting…`);
-    connectToTV(tvIP, tvPort);
+// -------------------------------
+//  Update UI Status Text
+// -------------------------------
+function updateStatus(text) {
+    const el = document.getElementById("status");
+    if (el) el.innerText = text;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    init();
-
-    document.querySelectorAll("[data-key]").forEach(el => {
-        el.addEventListener("click", () => {
-            const key = el.getAttribute("data-key");
-            sendKey(key);
-        });
-    });
-});
+// -------------------------------
+//  Start Connection
+// -------------------------------
+connectToTV();
