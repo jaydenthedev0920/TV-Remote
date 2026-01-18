@@ -1,117 +1,75 @@
+/* ================================
+   FUTURISTIC SAMSUNG REMOTE UI
+   Clean • Cinematic • Professional
+================================ */
+
 body {
-    background: #0a0a0a;
-    color: white;
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background: radial-gradient(circle at center, #0a0a0f, #000000);
+    font-family: "Segoe UI", sans-serif;
+    color: white;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.container {
-    width: 100%;
-    max-width: 420px;
-    padding: 20px;
+.remote-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 350px;
+    box-shadow: 0 0 40px rgba(0, 150, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 20px;
-    font-weight: 300;
-    opacity: 0.85;
+.title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
 .status {
-    margin-bottom: 20px;
     font-size: 14px;
     opacity: 0.8;
+    margin-bottom: 25px;
 }
 
-/* --- REMOTE BODY --- */
-.remote {
-    background: #111;
-    padding: 25px;
-    border-radius: 40px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.6);
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    align-items: center;
-}
-
-/* --- GENERIC BUTTON STYLE --- */
-.btn {
-    background: #1c1c1c;
-    border: none;
-    padding: 14px 20px;
-    border-radius: 50px;
-    font-size: 15px;
-    color: white;
-    cursor: pointer;
-    min-width: 80px;
-    transition: 0.15s;
-    box-shadow: inset 0 0 4px rgba(255,255,255,0.05),
-                0 3px 8px rgba(0,0,0,0.4);
-}
-
-.btn:hover {
-    background: #2a2a2a;
-}
-
-/* --- POWER BUTTON --- */
-.power {
-    background: #b30000;
-    box-shadow: inset 0 0 6px rgba(255,255,255,0.1),
-                0 3px 10px rgba(255,0,0,0.4);
-}
-
-/* --- ROWS --- */
-.row {
-    display: flex;
-    justify-content: center;
+.remote-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
 }
 
-/* --- D-PAD CIRCLE --- */
-.row.dpad {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+.btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+    user-select: none;
 }
 
-.dpad-center {
-    background: #1c1c1c;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+.btn:hover {
+    background: rgba(0, 150, 255, 0.25);
+    box-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: scale(0.95);
+    background: rgba(0, 150, 255, 0.35);
+}
+
+.wide {
+    grid-column: span 3;
     font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset 0 0 6px rgba(255,255,255,0.05),
-                0 4px 10px rgba(0,0,0,0.5);
-}
-
-.dpad-btn {
-    background: #1c1c1c;
-    width: 60px;
-    height: 40px;
-    border-radius: 20px;
-    font-size: 18px;
-    box-shadow: inset 0 0 4px rgba(255,255,255,0.05),
-                0 3px 8px rgba(0,0,0,0.4);
-}
-
-.dpad-btn:hover,
-.dpad-center:hover {
-    background: #2a2a2a;
-}
-
-/* --- SPECIAL BUTTONS (HOME, BACK, HDMI) --- */
-.special {
-    min-width: 100px;
-    padding: 12px 18px;
-    border-radius: 30px;
-    font-size: 14px;
-    opacity: 0.9;
+    padding: 16px;
 }
