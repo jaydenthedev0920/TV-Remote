@@ -1,24 +1,41 @@
 // server.js
-// Local helper to auto-detect Samsung TV IP on your LAN
+// Local helper to auto-detect Samsung TV IP + port on your LAN
 
 const http = require("http");
 const net = require("net");
+const os = require("os");
 
 const PORT = 5050;
-const SUBNETS = ["192.168.0.", "192.168.1."];
-const TV_PORT = 8001;
+const TV_PORTS = [8001, 8002]; // 8001 = ws, 8002 = wss
 
-function checkHost(ip) {
+function getLocalSubnetPrefix() {
+    const interfaces = os.networkInterfaces();
+    for (const name of Object.keys(interfaces)) {
+        for (const iface of interfaces[name]) {
+            if (
+                iface.family === "IPv4" &&
+                !iface.internal &&
+                (iface.address.startsWith("192.168.") ||
+                 iface.address.startsWith("10.") ||
+                 iface.address.startsWith("172."))
+            ) {
+                const parts = iface.address.split(".");
+                return parts[0] + "." + parts[1] + "." + parts[2] + ".";
+            }
+        }
+    }
+    return null;
+}
+
+function checkHost(ip, port) {
     return new Promise(resolve => {
         const socket = new net.Socket();
-        let found = false;
 
         socket.setTimeout(400);
 
         socket.on("connect", () => {
-            found = true;
             socket.destroy();
-            resolve(ip);
+            resolve({ ip, port });
         });
 
         socket.on("timeout", () => {
@@ -30,29 +47,37 @@ function checkHost(ip) {
             resolve(null);
         });
 
-        socket.connect(TV_PORT, ip);
+        socket.connect(port, ip);
     });
 }
 
 async function findTV() {
-    for (const subnet of SUBNETS) {
-        const checks = [];
-        for (let i = 2; i < 255; i++) {
-            const ip = subnet + i;
-            checks.push(checkHost(ip));
+    const subnet = getLocalSubnetPrefix();
+    if (!subnet) return null;
+
+    const checks = [];
+
+    for (let i = 2; i < 255; i++) {
+        const ip = subnet + i;
+        for (const port of TV_PORTS) {
+            checks.push(checkHost(ip, port));
         }
-        const results = await Promise.all(checks);
-        const hit = results.find(r => r !== null);
-        if (hit) return hit;
     }
-    return null;
+
+    const results = await Promise.all(checks);
+    const hit = results.find(r => r !== null);
+    return hit || null;
 }
 
 const server = http.createServer(async (req, res) => {
     if (req.url === "/tv-ip") {
-        const ip = await findTV();
+        const result = await findTV();
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ ip }));
+        if (!result) {
+            res.end(JSON.stringify({ ip: null, port: null }));
+        } else {
+            res.end(JSON.stringify({ ip: result.ip, port: result.port }));
+        }
     } else {
         res.writeHead(404);
         res.end("Not found");
