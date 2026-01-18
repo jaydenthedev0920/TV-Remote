@@ -8,49 +8,67 @@
 </head>
 <body>
 
+    <audio id="click-sound" src="click.mp3" preload="auto"></audio>
+
     <div class="remote-container">
 
         <h1 class="title">Samsung TV Remote</h1>
         <div id="status" class="status">Connecting…</div>
 
-        <!-- POWER BUTTON -->
+        <!-- POWER -->
         <div class="power-row">
-            <button class="btn power" onclick="sendKey('KEY_POWER')">⏻</button>
+            <button class="btn power pulse" onclick="playClick(); sendKey('KEY_POWER')">⏻</button>
         </div>
 
-        <!-- VOLUME + CHANNEL -->
-        <div class="side-controls">
-            <div>
-                <button class="btn side-btn" onclick="sendKey('KEY_VOLUP')">Vol +</button>
-                <button class="btn side-btn" onclick="sendKey('KEY_VOLDOWN')">Vol -</button>
-            </div>
-
-            <div>
-                <button class="btn side-btn" onclick="sendKey('KEY_CHUP')">Ch +</button>
-                <button class="btn side-btn" onclick="sendKey('KEY_CHDOWN')">Ch -</button>
-            </div>
+        <!-- HOME / BACK / SETTINGS -->
+        <div class="top-row">
+            <button class="btn small pulse" onclick="playClick(); sendKey('KEY_HOME')">Home</button>
+            <button class="btn small pulse" onclick="playClick(); sendKey('KEY_BACK')">Back</button>
+            <button class="btn small pulse" onclick="playClick(); sendKey('KEY_MENU')">Menu</button>
         </div>
 
         <!-- D-PAD -->
         <div class="dpad">
-            <button class="btn dpad-btn" onclick="sendKey('KEY_UP')">▲</button>
+            <button class="btn dpad-btn pulse" onclick="playClick(); sendKey('KEY_UP')">▲</button>
 
             <div class="middle-row">
-                <button class="btn dpad-btn" onclick="sendKey('KEY_LEFT')">◀</button>
-                <button class="btn ok-btn" onclick="sendKey('KEY_ENTER')">OK</button>
-                <button class="btn dpad-btn" onclick="sendKey('KEY_RIGHT')">▶</button>
+                <button class="btn dpad-btn pulse" onclick="playClick(); sendKey('KEY_LEFT')">◀</button>
+                <button class="btn ok-btn pulse" onclick="playClick(); sendKey('KEY_ENTER')">OK</button>
+                <button class="btn dpad-btn pulse" onclick="playClick(); sendKey('KEY_RIGHT')">▶</button>
             </div>
 
-            <button class="btn dpad-btn" onclick="sendKey('KEY_DOWN')">▼</button>
+            <button class="btn dpad-btn pulse" onclick="playClick(); sendKey('KEY_DOWN')">▼</button>
         </div>
 
-        <!-- BOTTOM BUTTONS -->
-        <button class="btn wide" onclick="sendKey('KEY_HOME')">Home</button>
-        <button class="btn wide" onclick="sendKey('KEY_BACK')">Back</button>
-        <button class="btn wide" onclick="sendKey('KEY_EXIT')">Exit</button>
+        <!-- VOLUME + CHANNEL ROCKERS -->
+        <div class="rockers">
+            <div class="rocker">
+                <div class="rocker-label">VOL</div>
+                <button class="btn rocker-btn pulse" onclick="playClick(); sendKey('KEY_VOLUP')">+</button>
+                <button class="btn rocker-btn pulse" onclick="playClick(); sendKey('KEY_VOLDOWN')">−</button>
+            </div>
+
+            <div class="rocker">
+                <div class="rocker-label">CH</div>
+                <button class="btn rocker-btn pulse" onclick="playClick(); sendKey('KEY_CHUP')">+</button>
+                <button class="btn rocker-btn pulse" onclick="playClick(); sendKey('KEY_CHDOWN')">−</button>
+            </div>
+        </div>
+
+        <!-- EXIT -->
+        <button class="btn wide pulse" onclick="playClick(); sendKey('KEY_EXIT')">Exit</button>
 
     </div>
 
     <script src="script.js"></script>
+
+    <script>
+        function playClick() {
+            const snd = document.getElementById("click-sound");
+            snd.currentTime = 0;
+            snd.play();
+        }
+    </script>
+
 </body>
 </html>
