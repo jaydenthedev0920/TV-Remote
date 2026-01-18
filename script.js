@@ -1,26 +1,36 @@
 let ws = null;
+let tvIP = null;
+
+function setStatus(text) {
+    document.getElementById("status").innerText = text;
+}
+
+async function getTVIP() {
+    try {
+        const res = await fetch("http://localhost:5050/tv-ip");
+        const data = await res.json();
+        return data.ip || null;
+    } catch (e) {
+        return null;
+    }
+}
 
 function connectToTV(ip) {
     const url = `ws://${ip}:8001/api/v2/channels/samsung.remote.control`;
-
     ws = new WebSocket(url);
 
     ws.onopen = () => {
-        setStatus("Connected");
+        setStatus(`Connected to TV (${ip})`);
         console.log("Connected to Samsung TV");
     };
 
     ws.onerror = () => {
-        setStatus("Connection failed");
+        setStatus("Connection error");
     };
 
     ws.onclose = () => {
         setStatus("Disconnected");
     };
-}
-
-function setStatus(text) {
-    document.getElementById("status").innerText = text;
 }
 
 function sendKey(key) {
@@ -42,14 +52,26 @@ function sendKey(key) {
     ws.send(JSON.stringify(cmd));
 }
 
-document.getElementById("connect-btn").addEventListener("click", () => {
-    const ip = document.getElementById("tv-ip").value.trim();
-    if (ip) connectToTV(ip);
-});
+async function init() {
+    setStatus("Searching for TV…");
+    tvIP = await getTVIP();
 
-document.querySelectorAll(".btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const key = btn.getAttribute("data-key");
-        sendKey(key);
+    if (!tvIP) {
+        setStatus("TV not found on network");
+        return;
+    }
+
+    setStatus(`TV found at ${tvIP}, connecting…`);
+    connectToTV(tvIP);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    init();
+
+    document.querySelectorAll("[data-key]").forEach(el => {
+        el.addEventListener("click", () => {
+            const key = el.getAttribute("data-key");
+            sendKey(key);
+        });
     });
 });
