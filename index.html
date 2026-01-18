@@ -13,31 +13,41 @@
         <h1 class="title">Samsung TV Remote</h1>
         <div id="status" class="status">Connecting…</div>
 
-        <div class="remote-grid">
-
-            <button class="btn" onclick="sendKey('KEY_POWER')">⏻</button>
-
-            <button class="btn" onclick="sendKey('KEY_VOLUP')">Vol +</button>
-            <button class="btn" onclick="sendKey('KEY_VOLDOWN')">Vol -</button>
-
-            <button class="btn" onclick="sendKey('KEY_CHUP')">Ch +</button>
-            <button class="btn" onclick="sendKey('KEY_CHDOWN')">Ch -</button>
-
-            <button class="btn" onclick="sendKey('KEY_MUTE')">Mute</button>
-
-            <button class="btn" onclick="sendKey('KEY_HOME')">Home</button>
-            <button class="btn" onclick="sendKey('KEY_MENU')">Menu</button>
-
-            <button class="btn" onclick="sendKey('KEY_UP')">▲</button>
-            <button class="btn" onclick="sendKey('KEY_LEFT')">◀</button>
-            <button class="btn" onclick="sendKey('KEY_ENTER')">OK</button>
-            <button class="btn" onclick="sendKey('KEY_RIGHT')">▶</button>
-            <button class="btn" onclick="sendKey('KEY_DOWN')">▼</button>
-
-            <button class="btn wide" onclick="sendKey('KEY_BACK')">Back</button>
-            <button class="btn wide" onclick="sendKey('KEY_EXIT')">Exit</button>
-
+        <!-- POWER BUTTON -->
+        <div class="power-row">
+            <button class="btn power" onclick="sendKey('KEY_POWER')">⏻</button>
         </div>
+
+        <!-- VOLUME + CHANNEL -->
+        <div class="side-controls">
+            <div>
+                <button class="btn side-btn" onclick="sendKey('KEY_VOLUP')">Vol +</button>
+                <button class="btn side-btn" onclick="sendKey('KEY_VOLDOWN')">Vol -</button>
+            </div>
+
+            <div>
+                <button class="btn side-btn" onclick="sendKey('KEY_CHUP')">Ch +</button>
+                <button class="btn side-btn" onclick="sendKey('KEY_CHDOWN')">Ch -</button>
+            </div>
+        </div>
+
+        <!-- D-PAD -->
+        <div class="dpad">
+            <button class="btn dpad-btn" onclick="sendKey('KEY_UP')">▲</button>
+
+            <div class="middle-row">
+                <button class="btn dpad-btn" onclick="sendKey('KEY_LEFT')">◀</button>
+                <button class="btn ok-btn" onclick="sendKey('KEY_ENTER')">OK</button>
+                <button class="btn dpad-btn" onclick="sendKey('KEY_RIGHT')">▶</button>
+            </div>
+
+            <button class="btn dpad-btn" onclick="sendKey('KEY_DOWN')">▼</button>
+        </div>
+
+        <!-- BOTTOM BUTTONS -->
+        <button class="btn wide" onclick="sendKey('KEY_HOME')">Home</button>
+        <button class="btn wide" onclick="sendKey('KEY_BACK')">Back</button>
+        <button class="btn wide" onclick="sendKey('KEY_EXIT')">Exit</button>
 
     </div>
 
