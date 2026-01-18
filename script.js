@@ -1,21 +1,22 @@
-// ===============================
-//  Samsung TV Remote - Direct IP
-// ===============================
+// =======================================
+//   Samsung TV Remote - Direct Connect
+//   Target TV: 192.168.1.124 (AU8000)
+// =======================================
 
-const TV_IP = "192.168.1.124";   // Your TV's IP
-const TV_PORT = 8002;            // Secure WebSocket port for AU8000
+const TV_IP = "192.168.1.124";   // Confirmed AU8000 IP
+const TV_PORT = 8002;            // Secure WebSocket port for Samsung TVs
 
 let ws = null;
 let reconnectTimer = null;
 
-// -------------------------------
-//  Connect to TV
-// -------------------------------
+// ---------------------------------------
+//   Connect to Samsung TV
+// ---------------------------------------
 function connectToTV() {
-    const encodedName = btoa("JaydenRemote");
-    const url = `wss://${TV_IP}:${TV_PORT}/api/v2/channels/samsung.remote.control?name=${encodedName}`;
+    const remoteName = btoa("JaydenRemote"); // Name shown in TV pairing popup
+    const url = `wss://${TV_IP}:${TV_PORT}/api/v2/channels/samsung.remote.control?name=${remoteName}`;
 
-    console.log("Connecting to TV at:", url);
+    console.log("Connecting to TV:", url);
 
     ws = new WebSocket(url);
 
@@ -42,9 +43,9 @@ function connectToTV() {
     };
 }
 
-// -------------------------------
-//  Send Remote Key
-// -------------------------------
+// ---------------------------------------
+//   Send Remote Key to TV
+// ---------------------------------------
 function sendKey(key) {
     if (!ws || ws.readyState !== 1) {
         console.log("Not connected, cannot send:", key);
@@ -52,7 +53,7 @@ function sendKey(key) {
         return;
     }
 
-    const command = {
+    const payload = {
         method: "ms.remote.control",
         params: {
             Cmd: "Click",
@@ -62,19 +63,19 @@ function sendKey(key) {
         }
     };
 
-    ws.send(JSON.stringify(command));
+    ws.send(JSON.stringify(payload));
     console.log("Sent key:", key);
 }
 
-// -------------------------------
-//  Update UI Status Text
-// -------------------------------
+// ---------------------------------------
+//   Update UI Status Text
+// ---------------------------------------
 function updateStatus(text) {
     const el = document.getElementById("status");
     if (el) el.innerText = text;
 }
 
-// -------------------------------
-//  Start Connection
-// -------------------------------
+// ---------------------------------------
+//   Start Connection
+// ---------------------------------------
 connectToTV();
