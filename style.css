@@ -1,5 +1,5 @@
 body {
-    background: #0d0d0d;
+    background: #0a0a0a;
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -18,6 +18,7 @@ body {
 h1 {
     margin-bottom: 20px;
     font-weight: 300;
+    opacity: 0.85;
 }
 
 .ip-box {
@@ -49,34 +50,91 @@ h1 {
     opacity: 0.8;
 }
 
+/* --- REMOTE BODY --- */
 .remote {
+    background: #111;
+    padding: 25px;
+    border-radius: 40px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 18px;
+    align-items: center;
 }
 
+/* --- GENERIC BUTTON STYLE --- */
+.btn {
+    background: #1c1c1c;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: 15px;
+    color: white;
+    cursor: pointer;
+    min-width: 80px;
+    transition: 0.15s;
+    box-shadow: inset 0 0 4px rgba(255,255,255,0.05),
+                0 3px 8px rgba(0,0,0,0.4);
+}
+
+.btn:hover {
+    background: #2a2a2a;
+}
+
+/* --- POWER BUTTON --- */
+.power {
+    background: #b30000;
+    box-shadow: inset 0 0 6px rgba(255,255,255,0.1),
+                0 3px 10px rgba(255,0,0,0.4);
+}
+
+/* --- ROWS --- */
 .row {
     display: flex;
     justify-content: center;
     gap: 12px;
 }
 
-.btn {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    padding: 14px 20px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    min-width: 80px;
-    transition: 0.2s;
+/* --- D-PAD CIRCLE --- */
+.row.dpad {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.btn:hover {
-    background: #333;
+.dpad-center {
+    background: #1c1c1c;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 6px rgba(255,255,255,0.05),
+                0 4px 10px rgba(0,0,0,0.5);
 }
 
-.power {
-    background: #b30000;
-    border-color: #ff4d4d;
+.dpad-btn {
+    background: #1c1c1c;
+    width: 60px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 18px;
+    box-shadow: inset 0 0 4px rgba(255,255,255,0.05),
+                0 3px 8px rgba(0,0,0,0.4);
+}
+
+.dpad-btn:hover,
+.dpad-center:hover {
+    background: #2a2a2a;
+}
+
+/* --- SPECIAL BUTTONS (HOME, BACK, HDMI) --- */
+.special {
+    min-width: 100px;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+    opacity: 0.9;
 }
