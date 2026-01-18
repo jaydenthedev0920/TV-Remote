@@ -1,26 +1,31 @@
 let ws = null;
 let tvIP = null;
+let tvPort = null;
 
 function setStatus(text) {
     document.getElementById("status").innerText = text;
 }
 
-async function getTVIP() {
+async function getTVInfo() {
     try {
         const res = await fetch("http://localhost:5050/tv-ip");
         const data = await res.json();
-        return data.ip || null;
+        if (!data.ip || !data.port) return null;
+        return data;
     } catch (e) {
         return null;
     }
 }
 
-function connectToTV(ip) {
-    const url = `ws://${ip}:8001/api/v2/channels/samsung.remote.control`;
+function connectToTV(ip, port) {
+    const isSecure = port === 8002;
+    const protocol = isSecure ? "wss" : "ws";
+    const url = `${protocol}://${ip}:${port}/api/v2/channels/samsung.remote.control`;
+
     ws = new WebSocket(url);
 
     ws.onopen = () => {
-        setStatus(`Connected to TV (${ip})`);
+        setStatus(`Connected to TV (${ip}:${port})`);
         console.log("Connected to Samsung TV");
     };
 
@@ -54,15 +59,18 @@ function sendKey(key) {
 
 async function init() {
     setStatus("Searching for TV…");
-    tvIP = await getTVIP();
+    const info = await getTVInfo();
 
-    if (!tvIP) {
+    if (!info) {
         setStatus("TV not found on network");
         return;
     }
 
-    setStatus(`TV found at ${tvIP}, connecting…`);
-    connectToTV(tvIP);
+    tvIP = info.ip;
+    tvPort = info.port;
+
+    setStatus(`TV found at ${tvIP}:${tvPort}, connecting…`);
+    connectToTV(tvIP, tvPort);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
