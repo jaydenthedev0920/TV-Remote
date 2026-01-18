@@ -12,12 +12,7 @@
 
         <h1>Samsung TV Remote</h1>
 
-        <div class="ip-box">
-            <input id="tv-ip" type="text" placeholder="Enter TV IP (e.g., 192.168.1.50)">
-            <button id="connect-btn">Connect</button>
-        </div>
-
-        <div id="status" class="status">Not connected</div>
+        <div id="status" class="status">Searching for TV…</div>
 
         <div class="remote">
 
@@ -35,27 +30,24 @@
                 <button class="btn" data-key="KEY_CHDOWN">Ch -</button>
             </div>
 
-            <div class="row">
-                <button class="btn" data-key="KEY_UP">▲</button>
+            <div class="row dpad">
+                <button class="dpad-btn" data-key="KEY_UP">▲</button>
+                <div class="dpad-center" data-key="KEY_ENTER">OK</div>
+                <button class="dpad-btn" data-key="KEY_DOWN">▼</button>
             </div>
 
             <div class="row">
                 <button class="btn" data-key="KEY_LEFT">◀</button>
-                <button class="btn" data-key="KEY_ENTER">OK</button>
                 <button class="btn" data-key="KEY_RIGHT">▶</button>
             </div>
 
             <div class="row">
-                <button class="btn" data-key="KEY_DOWN">▼</button>
+                <button class="btn special" data-key="KEY_HOME">Home</button>
+                <button class="btn special" data-key="KEY_BACK">Back</button>
             </div>
 
             <div class="row">
-                <button class="btn" data-key="KEY_HOME">Home</button>
-                <button class="btn" data-key="KEY_BACK">Back</button>
-            </div>
-
-            <div class="row">
-                <button class="btn" data-key="KEY_HDMI">HDMI</button>
+                <button class="btn special" data-key="KEY_HDMI">HDMI</button>
             </div>
 
         </div>
