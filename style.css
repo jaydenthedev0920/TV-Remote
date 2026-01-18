@@ -1,28 +1,34 @@
 /* ================================
-   FUTURISTIC SAMSUNG REMOTE UI
-   Glow • Cinematic • Premium
+   FUTURISTIC REMOTE UI
+   Clean • Spacious • Grid Background
 ================================ */
 
+/* BACKGROUND GRID */
 body {
     margin: 0;
     padding: 0;
-    background: radial-gradient(circle at center, #0a0a0f, #000000);
+    height: 100vh;
+    background: #0a0a0f;
+    background-image:
+        linear-gradient(rgba(0,150,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,150,255,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
     font-family: "Segoe UI", sans-serif;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
+/* REMOTE PANEL */
 .remote-container {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 40px;
-    width: 360px;
-    box-shadow: 0 0 40px rgba(0, 150, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(25px);
+    border-radius: 22px;
+    padding: 45px 35px;
+    width: 380px;
+    box-shadow: 0 0 50px rgba(0, 150, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
 }
 
@@ -30,35 +36,16 @@ body {
 .title {
     font-size: 26px;
     font-weight: 600;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+    margin-bottom: 8px;
 }
 
 .status {
     font-size: 14px;
-    opacity: 0.8;
-    margin-bottom: 25px;
+    opacity: 0.75;
+    margin-bottom: 35px;
 }
 
-/* GLOW PULSE ANIMATION */
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 8px rgba(0,150,255,0.2); }
-    50% { box-shadow: 0 0 18px rgba(0,150,255,0.5); }
-    100% { box-shadow: 0 0 8px rgba(0,150,255,0.2); }
-}
-
-.pulse {
-    animation: pulseGlow 2.5s infinite ease-in-out;
-}
-
-/* BUTTON PRESS ANIMATION */
-.btn:active {
-    transform: scale(0.92);
-    background: rgba(0, 150, 255, 0.45);
-    box-shadow: 0 0 25px rgba(0,150,255,0.7);
-}
-
-/* GENERAL BUTTON STYLE */
+/* BUTTON BASE STYLE */
 .btn {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -71,32 +58,54 @@ body {
     user-select: none;
 }
 
+/* HOVER + PRESS */
 .btn:hover {
     background: rgba(0, 150, 255, 0.25);
     transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: scale(0.92);
+    background: rgba(0, 150, 255, 0.45);
+    box-shadow: 0 0 25px rgba(0,150,255,0.7);
+}
+
+/* GLOW PULSE */
+.pulse {
+    animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 8px rgba(0,150,255,0.15); }
+    50% { box-shadow: 0 0 18px rgba(0,150,255,0.45); }
+    100% { box-shadow: 0 0 8px rgba(0,150,255,0.15); }
 }
 
 /* POWER BUTTON */
 .power-row {
     display: flex;
     justify-content: center;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 
 .power {
     background: rgba(255, 60, 60, 0.25);
     border: 1px solid rgba(255, 60, 60, 0.4);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 24px;
 }
 
 /* TOP ROW */
 .top-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 
 .small {
-    width: 90px;
+    width: 100px;
 }
 
 /* D-PAD */
@@ -104,19 +113,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .middle-row {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin: 12px 0;
+    gap: 25px;
+    margin: 18px 0;
 }
 
 .ok-btn {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     font-size: 20px;
     background: rgba(0, 150, 255, 0.25);
@@ -124,16 +133,16 @@ body {
 }
 
 .dpad-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
+    width: 65px;
+    height: 65px;
+    border-radius: 14px;
 }
 
 /* ROCKERS */
 .rockers {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 
 .rocker {
@@ -145,18 +154,18 @@ body {
 .rocker-label {
     font-size: 14px;
     opacity: 0.7;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .rocker-btn {
-    width: 70px;
-    margin: 5px 0;
+    width: 80px;
+    margin: 6px 0;
 }
 
 /* WIDE BUTTON */
 .wide {
     width: 100%;
-    margin-top: 10px;
-    padding: 16px;
+    margin-top: 15px;
+    padding: 18px;
     font-size: 18px;
 }
